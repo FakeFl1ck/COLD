@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>АВТОДЕЛО — Профессиональный автосервис</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#8B1A1A;
+  --red-dark:#6B1212;
+  --red-mid:#9B2020;
+  --dark:#1a1a1a;
+  --dark2:#222222;
+  --dark3:#2a2a2a;
+  --gray-bg:#f0f0f0;
+  --gray-light:#f5f5f5;
+  --text-dark:#1a1a2e;
+  --text-gray:#666;
+  --text-muted:#999;
+  --white:#fff;
+  --nav-h:60px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#fff;color:#333;line-height:1.6}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:#1a1a1a;height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;
+}
+.logo{font-size:20px;font-weight:800;letter-spacing:-0.3px;color:#fff;text-decoration:none}
+.logo span{color:var(--red)}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{color:#ccc;text-decoration:none;font-size:15px;font-weight:500;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.nav-links a.active{border-bottom:2px solid var(--red);padding-bottom:2px}
+.nav-cta{
+  background:var(--red);color:#fff;border:none;
+  padding:10px 22px;border-radius:4px;font-size:15px;font-weight:600;
+  cursor:pointer;text-decoration:none;transition:background .2s
+}
+.nav-cta:hover{background:var(--red-dark)}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;padding-top:var(--nav-h);
+  background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 40%,#1e1e1e 100%);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;
+}
+.hero-bg-pattern{
+  position:absolute;inset:0;
+  background-image:
+    repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(139,26,26,.06) 40px,rgba(139,26,26,.06) 80px),
+    repeating-linear-gradient(-45deg,transparent,transparent 40px,rgba(255,255,255,.02) 40px,rgba(255,255,255,.02) 80px);
+}
+.hero-diamonds{position:absolute;right:5%;top:50%;transform:translateY(-50%);opacity:.15}
+.hero-diamonds svg{width:420px;height:420px}
+.hero-content{position:relative;z-index:1;padding:80px 48px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red);color:#fff;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;
+  padding:7px 18px;border-radius:20px;margin-bottom:28px
+}
+.hero-badge::before{content:'◆';font-size:9px}
+h1{font-size:clamp(42px,6vw,70px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:20px}
+h1 .accent{color:var(--red)}
+.hero-desc{color:#aaa;font-size:17px;line-height:1.7;max-width:480px;margin-bottom:36px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:60px}
+.btn-primary{
+  background:var(--red);color:#fff;border:none;
+  padding:16px 32px;border-radius:4px;font-size:16px;font-weight:600;
+  cursor:pointer;text-decoration:none;transition:background .2s
+}
+.btn-primary:hover{background:var(--red-dark)}
+.btn-outline{
+  background:transparent;color:#fff;
+  border:2px solid rgba(255,255,255,.4);
+  padding:14px 32px;border-radius:4px;font-size:16px;font-weight:600;
+  cursor:pointer;text-decoration:none;transition:all .2s
+}
+.btn-outline:hover{border-color:#fff}
+.hero-stats{display:flex;gap:48px}
+.stat-num{font-size:36px;font-weight:800;color:var(--red);display:block}
+.stat-label{font-size:12px;font-weight:600;letter-spacing:1.5px;color:#888;text-transform:uppercase}
+.scroll-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  color:#555;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:8px
+}
+.scroll-hint::after{
+  content:'';width:1px;height:30px;background:#555;
+  animation:scrollLine 1.5s ease-in-out infinite
+}
+@keyframes scrollLine{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ── SECTIONS COMMON ── */
+section{padding:100px 48px}
+.section-label{
+  font-size:12px;font-weight:700;letter-spacing:2px;
+  color:var(--red);text-transform:uppercase;
+  text-align:center;margin-bottom:12px
+}
+.section-title{
+  font-size:clamp(32px,4vw,46px);font-weight:800;
+  color:var(--text-dark);text-align:center;margin-bottom:16px
+}
+.section-divider{
+  width:48px;height:3px;background:var(--red);
+  margin:0 auto 56px
+}
+
+/* ── SERVICES ── */
+#services{background:var(--gray-bg)}
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:20px;max-width:1100px;margin:0 auto
+}
+.service-card{
+  background:#fff;border-radius:6px;padding:32px 28px;
+  border-left:3px solid var(--red);position:relative;
+  transition:transform .2s,box-shadow .2s
+}
+.service-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.service-icon{
+  width:44px;height:44px;border-radius:50%;
+  border:1.5px solid var(--red);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;color:var(--red)
+}
+.service-icon svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.8;fill:none}
+.service-card h3{font-size:19px;font-weight:700;color:var(--text-dark);margin-bottom:10px}
+.service-card p{font-size:14px;color:var(--text-gray);line-height:1.65;margin-bottom:16px}
+.service-price{font-size:15px;font-weight:700;color:var(--red)}
+
+/* ── ABOUT ── */
+#about{background:#fff}
+.about-inner{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:72px;align-items:center;max-width:1100px;margin:0 auto
+}
+.about-img-wrap{position:relative}
+.about-img{
+  width:100%;height:460px;object-fit:cover;border-radius:6px;display:block;
+  background:linear-gradient(135deg,#2a2520 0%,#1a1510 100%);
+}
+.about-img-placeholder{
+  width:100%;height:460px;border-radius:6px;
+  background:linear-gradient(135deg,#2a2520 0%,#1a1510 100%);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden
+}
+.about-img-placeholder::after{
+  content:'🔧';font-size:80px;opacity:.3
+}
+.years-badge{
+  position:absolute;bottom:-20px;right:-20px;
+  width:110px;height:110px;border-radius:50%;
+  background:var(--red);color:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-weight:800;line-height:1.1
+}
+.years-badge .num{font-size:36px}
+.years-badge .lbl{font-size:13px;font-weight:600}
+.about-text .section-label,.about-text .section-title{text-align:left}
+.about-text .section-divider{margin:0 0 24px}
+.about-text p{color:#555;font-size:16px;line-height:1.75;margin-bottom:16px}
+.about-list{list-style:none;margin-top:8px}
+.about-list li{
+  padding:6px 0;font-size:15px;color:#444;
+  display:flex;align-items:center;gap:10px
+}
+.about-list li::before{
+  content:'';width:8px;height:8px;border-radius:50%;
+  background:var(--red);flex-shrink:0
+}
+
+/* ── TEAM ── */
+#team{background:var(--gray-bg)}
+.team-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:20px;max-width:1100px;margin:0 auto
+}
+.team-card{background:#fff;border-radius:6px;overflow:hidden;transition:transform .2s}
+.team-card:hover{transform:translateY(-3px)}
+.team-avatar{
+  background:var(--dark2);height:200px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;font-weight:800;color:var(--red);letter-spacing:1px
+}
+.team-info{padding:20px}
+.team-info h3{font-size:17px;font-weight:700;color:var(--text-dark);margin-bottom:4px}
+.team-info .role{font-size:13px;color:var(--text-gray);margin-bottom:8px}
+.team-info .exp{font-size:13px;font-weight:600;color:var(--red)}
+
+/* ── REVIEWS ── */
+#reviews{background:#fff}
+.reviews-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:20px;max-width:1100px;margin:0 auto
+}
+.review-card{
+  border:1px solid #e8e8e8;border-radius:6px;padding:28px;
+  transition:box-shadow .2s
+}
+.review-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.stars{color:var(--red);font-size:18px;margin-bottom:14px;letter-spacing:2px}
+.review-text{
+  font-size:15px;color:#444;line-height:1.7;margin-bottom:20px;
+  font-style:italic
+}
+.reviewer{display:flex;align-items:center;gap:12px}
+.reviewer-avatar{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--red);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;flex-shrink:0
+}
+.reviewer-name{font-size:15px;font-weight:600;color:var(--text-dark)}
+.reviewer-date{font-size:13px;color:var(--text-muted)}
+
+/* ── CONTACTS ── */
+#contacts{
+  background:linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);
+  padding:100px 48px
+}
+.contacts-inner{
+  display:grid;grid-template-columns:1fr 1.2fr;
+  gap:72px;align-items:start;max-width:1100px;margin:0 auto
+}
+.contacts-left .section-label,.contacts-left .section-title{text-align:left;color:#fff}
+.contacts-left .section-divider{margin:0 0 20px}
+.contacts-left h2{color:#fff}
+.contacts-desc{color:#aaa;font-size:16px;line-height:1.7;margin-bottom:40px}
+.contact-item{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.contact-icon{
+  width:46px;height:46px;border-radius:6px;
+  background:var(--red);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0
+}
+.contact-icon svg{width:20px;height:20px;stroke:#fff;stroke-width:2;fill:none}
+.contact-lbl{font-size:11px;font-weight:700;letter-spacing:1.5px;color:#777;text-transform:uppercase;margin-bottom:2px}
+.contact-val{font-size:16px;font-weight:600;color:#fff}
+
+/* ── FORM ── */
+.booking-form{
+  background:#2a2a2a;border-radius:8px;padding:36px;
+}
+.booking-form h3{color:#fff;font-size:22px;font-weight:700;margin-bottom:24px}
+.form-error{
+  background:#5a1515;border:1px solid #8b1a1a;
+  color:#ffaaaa;font-size:14px;padding:12px 16px;
+  border-radius:4px;margin-bottom:20px;display:none
+}
+.form-error.show{display:block}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-row.single{grid-template-columns:1fr}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:11px;font-weight:700;letter-spacing:1.5px;color:#888;text-transform:uppercase}
+.form-group label span{color:var(--red)}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  background:#333;border:1px solid #444;border-radius:4px;
+  color:#fff;font-size:15px;padding:12px 14px;font-family:inherit;
+  outline:none;transition:border-color .2s;
+  appearance:none;-webkit-appearance:none
+}
+.form-group input::placeholder,.form-group textarea::placeholder{color:#666}
+.form-group select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.form-group select option{background:#333;color:#fff}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{border-color:var(--red)}
+.form-group textarea{resize:vertical;min-height:90px}
+.form-group input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.5)}
+.submit-btn{
+  width:100%;background:var(--red);color:#fff;border:none;
+  padding:16px;border-radius:4px;font-size:16px;font-weight:700;
+  cursor:pointer;margin-top:8px;transition:background .2s;font-family:inherit
+}
+.submit-btn:hover{background:var(--red-dark)}
+.form-success{
+  display:none;text-align:center;padding:20px;
+  background:#1a3a1a;border:1px solid #2d6a2d;
+  border-radius:4px;color:#7ec87e;font-size:15px;font-weight:600
+}
+.form-success.show{display:block}
+
+/* ── FOOTER ── */
+footer{
+  background:#111;color:#666;text-align:center;
+  padding:24px 48px;font-size:14px
+}
+footer span{color:#fff;font-weight:700}
+footer .red{color:var(--red)}
+
+/* ── BACK TO TOP ── */
+#back-top{
+  position:fixed;bottom:28px;right:28px;z-index:200;
+  width:48px;height:48px;border-radius:50%;
+  background:var(--red);color:#fff;border:none;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;
+  box-shadow:0 4px 16px rgba(139,26,26,.5)
+}
+#back-top.visible{opacity:1;pointer-events:all}
+#back-top:hover{transform:scale(1.1)}
+#back-top svg{width:20px;height:20px;stroke:#fff;stroke-width:2.5;fill:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-links{gap:16px}
+  section{padding:70px 20px}
+  #contacts{padding:70px 20px}
+  h1{font-size:38px}
+  .hero-content{padding:60px 20px}
+  .hero-stats{gap:28px}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .about-inner{grid-template-columns:1fr;gap:40px}
+  .years-badge{bottom:-16px;right:16px}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .reviews-grid{grid-template-columns:1fr}
+  .contacts-inner{grid-template-columns:1fr;gap:40px}
+  .form-row{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+  .services-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .hero-btns{flex-direction:column}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#hero">АВТО<span>ДЕЛО</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services" id="nav-services">Услуги</a></li>
+    <li><a href="#about" id="nav-about">О нас</a></li>
+    <li><a href="#team" id="nav-team">Команда</a></li>
+    <li><a href="#reviews" id="nav-reviews">Отзывы</a></li>
+    <li><a href="#contacts" id="nav-contacts">Контакты</a></li>
+  </ul>
+  <a class="nav-cta" href="#contacts">Записаться</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-diamonds">
+    <svg viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="210,40 360,210 210,380 60,210" fill="rgba(139,26,26,0.25)" stroke="rgba(139,26,26,0.4)" stroke-width="1"/>
+      <polygon points="210,90 320,210 210,330 100,210" fill="rgba(139,26,26,0.15)" stroke="rgba(139,26,26,0.3)" stroke-width="1"/>
+      <polygon points="210,140 280,210 210,280 140,210" fill="rgba(139,26,26,0.1)" stroke="rgba(139,26,26,0.25)" stroke-width="1"/>
+      <line x1="60" y1="210" x2="360" y2="210" stroke="rgba(139,26,26,0.2)" stroke-width="1"/>
+      <line x1="210" y1="40" x2="210" y2="380" stroke="rgba(139,26,26,0.2)" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">ПРОФЕССИОНАЛЬНЫЙ АВТОСЕРВИС</div>
+    <h1>Ваш автомобиль<br><span class="accent">в надёжных</span> руках</h1>
+    <p class="hero-desc">Более 12 лет качественного ремонта и обслуживания автомобилей всех марок. Опытные мастера, современное оборудование, честные цены.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#contacts">Записаться на ремонт</a>
+      <a class="btn-outline" href="#services">Наши услуги</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-num">12+</span><span class="stat-label">Лет опыта</span></div>
+      <div><span class="stat-num">4800</span><span class="stat-label">Клиентов</span></div>
+      <div><span class="stat-num">98%</span><span class="stat-label">Довольных</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint">ПРОКРУТИТЕ</div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <p class="section-label">ЧТО МЫ ДЕЛАЕМ</p>
+  <h2 class="section-title">Наши услуги</h2>
+  <div class="section-divider"></div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </div>
+      <h3>Диагностика</h3>
+      <p>Компьютерная диагностика всех систем автомобиля, выявление неисправностей</p>
+      <div class="service-price">от 800 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <h3>Ремонт двигателя</h3>
+      <p>Капитальный и текущий ремонт двигателей всех марок и моделей</p>
+      <div class="service-price">от 5 000 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <h3>Шиномонтаж</h3>
+      <p>Замена, балансировка и хранение шин. Быстро и профессионально</p>
+      <div class="service-price">от 1 200 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+      </div>
+      <h3>Техобслуживание</h3>
+      <p>Плановое ТО по регламенту производителя, замена масел и фильтров</p>
+      <div class="service-price">от 2 500 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Ходовая часть</h3>
+      <p>Диагностика и ремонт подвески, рулевого управления и амортизаторов</p>
+      <div class="service-price">от 1 800 ₽</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3>Тормозная система</h3>
+      <p>Замена колодок, дисков, прокачка тормозов. Безопасность прежде всего</p>
+      <div class="service-price">от 1 500 ₽</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-img-wrap">
+      <div class="about-img-placeholder">
+        <img
+          src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=700&q=80"
+          alt="Механик за работой"
+          style="width:100%;height:100%;object-fit:cover;border-radius:6px;position:absolute;inset:0"
+          onerror="this.style.display='none'"
+        />
+      </div>
+      <div class="years-badge">
+        <span class="num">12</span>
+        <span class="lbl">лет</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-label" style="text-align:left">О КОМПАНИИ</p>
+      <h2 class="section-title" style="text-align:left;font-size:36px">Мы знаем автомобили изнутри</h2>
+      <div class="section-divider" style="margin:0 0 24px"></div>
+      <p>Автомастерская «АВТОДЕЛО» работает с 2013 года. За это время мы обслужили тысячи автомобилей и заработали репутацию надёжного сервиса, где ценят ваше время и деньги.</p>
+      <p>Наши мастера проходят регулярное обучение и сертификацию. Мы используем современное диагностическое оборудование и работаем только с проверенными запчастями от надёжных поставщиков.</p>
+      <ul class="about-list">
+        <li>Официальная гарантия на все виды работ</li>
+        <li>Оригинальные запчасти и сертифицированные аналоги</li>
+        <li>Современное диагностическое оборудование</li>
+        <li>Прозрачное ценообразование без скрытых платежей</li>
+        <li>Работаем с любыми марками: отечественные и иномарки</li>
+        <li>Удобная запись онлайн и по телефону</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <p class="section-label">ПРОФЕССИОНАЛЫ</p>
+  <h2 class="section-title">Наша команда</h2>
+  <div class="section-divider"></div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">АК</div>
+      <div class="team-info">
+        <h3>Алексей Кузнецов</h3>
+        <p class="role">Главный механик</p>
+        <p class="exp">Стаж 18 лет</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">СМ</div>
+      <div class="team-info">
+        <h3>Сергей Морозов</h3>
+        <p class="role">Моторист</p>
+        <p class="exp">Стаж 14 лет</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">ДВ</div>
+      <div class="team-info">
+        <h3>Дмитрий Волков</h3>
+        <p class="role">Диагност</p>
+        <p class="exp">Стаж 10 лет</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">ИП</div>
+      <div class="team-info">
+        <h3>Игорь Петров</h3>
+        <p class="role">Шиномонтажник</p>
+        <p class="exp">Стаж 9 лет</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <p class="section-label">КЛИЕНТЫ О НАС</p>
+  <h2 class="section-title">Отзывы</h2>
+  <div class="section-divider"></div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">«Отличный сервис! Привёз машину с непонятным стуком — за пару часов нашли и устранили. Ценам приятно удивился. Обязательно вернусь.»</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">НС</div>
+        <div>
+          <div class="reviewer-name">Николай Степанов</div>
+          <div class="reviewer-date">15 мая 2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">«Делала ТО и шиномонтаж. Всё быстро, вежливо, без навязчивых допуслуг. Показали и объяснили что заменили. Доверяю этим мастерам.»</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">ЕК</div>
+        <div>
+          <div class="reviewer-name">Елена Козлова</div>
+          <div class="reviewer-date">3 апреля 2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">«Обращаюсь уже третий год подряд. Качество стабильное, мастера знают своё дело. Диагностика чёткая, цены честные — рекомендую всем.»</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">РА</div>
+        <div>
+          <div class="reviewer-name">Руслан Алиев</div>
+          <div class="reviewer-date">20 февраля 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section id="contacts">
+  <div class="contacts-inner">
+    <div class="contacts-left">
+      <p class="section-label" style="text-align:left">СВЯЗЬ С НАМИ</p>
+      <h2 class="section-title" style="text-align:left;font-size:40px;color:#fff">Запишитесь<br>на сервис</h2>
+      <div class="section-divider" style="margin:0 0 20px"></div>
+      <p class="contacts-desc">Оставьте заявку онлайн или позвоните нам — мы свяжемся с вами в удобное время</p>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.4 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012.31 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.91a16 16 0 006.17 6.17l1.27-.76a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div>
+          <div class="contact-lbl">Телефон</div>
+          <div class="contact-val">+7 (495) 123-45-67</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="contact-lbl">Адрес</div>
+          <div class="contact-val">г. Москва, ул. Автомобильная, д. 12</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <div class="contact-lbl">Email</div>
+          <div class="contact-val">info@autodelo.ru</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="contact-lbl">Режим работы</div>
+          <div class="contact-val">Пн–Сб: 8:00–20:00, Вс: 9:00–17:00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="booking-form">
+      <h3>Онлайн запись</h3>
+      <div class="form-error" id="formError">Пожалуйста, введите ваше имя (минимум 2 символа)</div>
+      <div class="form-success" id="formSuccess">✓ Заявка отправлена! Мы свяжемся с вами в ближайшее время.</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>ИМЯ <span>*</span></label>
+          <input type="text" id="fname" placeholder="Иван Петров"/>
+        </div>
+        <div class="form-group">
+          <label>ТЕЛЕФОН <span>*</span></label>
+          <input type="tel" id="fphone" placeholder="+7 (999) 000-00-00"/>
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div class="form-group">
+          <label>МАРКА АВТОМОБИЛЯ</label>
+          <input type="text" id="fcar" placeholder="Toyota Camry 2020"/>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>ДАТА</label>
+          <input type="date" id="fdate"/>
+        </div>
+        <div class="form-group">
+          <label>ВРЕМЯ <span>*</span></label>
+          <select id="ftime">
+            <option value="">Выберите время</option>
+            <option>8:00</option><option>9:00</option><option>10:00</option>
+            <option>11:00</option><option>12:00</option><option>13:00</option>
+            <option>14:00</option><option>15:00</option><option>16:00</option>
+            <option>17:00</option><option>18:00</option><option>19:00</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div class="form-group">
+          <label>УСЛУГА</label>
+          <select id="fservice">
+            <option value="">Выберите услугу</option>
+            <option>Диагностика</option>
+            <option>Ремонт двигателя</option>
+            <option>Шиномонтаж</option>
+            <option>Техобслуживание</option>
+            <option>Ходовая часть</option>
+            <option>Тормозная система</option>
+            <option>Другое</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row single">
+        <div class="form-group">
+          <label>ОПИСАНИЕ ПРОБЛЕМЫ</label>
+          <textarea id="fdesc" placeholder="Опишите симптомы или что нужно сделать..."></textarea>
+        </div>
+      </div>
+
+      <button class="submit-btn" onclick="submitForm()">Отправить заявку</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>АВТО<span class="red">ДЕЛО</span></span> — Профессиональный автосервис. Все права защищены.</p>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Наверх">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+// Back to top
+const btn=document.getElementById('back-top');
+window.addEventListener('scroll',()=>{
+  btn.classList.toggle('visible',window.scrollY>400)
+})
+
+// Active nav link
+const sections=['hero','services','about','team','reviews','contacts'];
+const navMap={
+  services:document.getElementById('nav-services'),
+  about:document.getElementById('nav-about'),
+  team:document.getElementById('nav-team'),
+  reviews:document.getElementById('nav-reviews'),
+  contacts:document.getElementById('nav-contacts'),
+};
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      Object.values(navMap).forEach(a=>a&&a.classList.remove('active'));
+      const id=e.target.id;
+      if(navMap[id]) navMap[id].classList.add('active');
+    }
+  })
+},{threshold:0.4});
+sections.forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) observer.observe(el);
+});
+
+// Form submit
+function submitForm(){
+  const name=document.getElementById('fname').value.trim();
+  const phone=document.getElementById('fphone').value.trim();
+  const err=document.getElementById('formError');
+  const ok=document.getElementById('formSuccess');
+  err.classList.remove('show');
+  ok.classList.remove('show');
+  if(name.length<2){
+    err.textContent='Пожалуйста, введите ваше имя (минимум 2 символа)';
+    err.classList.add('show');
+    return;
+  }
+  if(!phone){
+    err.textContent='Пожалуйста, введите ваш номер телефона';
+    err.classList.add('show');
+    return;
+  }
+  ok.classList.add('show');
+  ['fname','fphone','fcar','fdate','ftime','fservice','fdesc'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value='';
+  });
+}
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const target=document.querySelector(a.getAttribute('href'));
+    if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'})}
+  })
+});
+
+// Set min date for booking
+const today=new Date().toISOString().split('T')[0];
+document.getElementById('fdate').min=today;
+</script>
+</body>
+</html>
